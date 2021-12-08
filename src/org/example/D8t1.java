@@ -46,18 +46,11 @@ public class D8t1 {
     }
 
     private static String decode(List<String> output, String[] patternsTable) {
+        List<String> table = List.of(patternsTable);
         final StringBuilder sb = new StringBuilder();
-        nextChar:
         for (String digit : output) {
-            for (int i = 0; i < patternsTable.length; i++) {
-                if (patternEqualSignal(patternsTable[i], digit)) {
-                    sb.append(i);
-                    continue nextChar;
-                }
-            }
-            throw new RuntimeException("Signal: " + digit + " wasn't found among " + Arrays.toString(patternsTable));
+            sb.append(table.indexOf(digit));
         }
-        System.out.println("table = " + Arrays.toString(patternsTable) + " " + output);
         return sb.toString();
     }
 
@@ -95,12 +88,6 @@ public class D8t1 {
         return true;
     }
 
-    private static boolean patternEqualSignal(String cPattern, String signals) {
-        return Objects.nonNull(cPattern) && Objects.nonNull(signals)
-                && cPattern.length() == signals.length()
-                && patternContainsAllSignals(cPattern, signals);
-    }
-
     private static List<String> withLength(List<String> cPatterns, int signals) {
         List<String> result = new ArrayList<>();
         for (String cPattern : cPatterns) {
@@ -121,9 +108,6 @@ public class D8t1 {
             output.add(digs);
             patterns.add(patternsAt);
         }
-//        for (int i = 0; i < patterns.size(); i++) {
-//            System.out.println(i + ") " + patterns.get(i) + " " + output.get(i));
-//        }
         scanner.close();
     }
 
