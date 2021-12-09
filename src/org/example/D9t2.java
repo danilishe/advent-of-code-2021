@@ -2,7 +2,10 @@ package org.example;
 
 import lombok.SneakyThrows;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
@@ -39,19 +42,41 @@ public class D9t2 {
             if (getValOnce(y, x + 1) < 9) points.add(new Point(x + 1, y));
             if (getValOnce(y - 1, x) < 9) points.add(new Point(x, y - 1));
             currentBassin++;
+            print();
         }
         bassins.add(currentBassin);
         System.out.println("currentBassin = " + currentBassin);
-        print();
+//        print();
     }
 
+    static long counter = 0;
+
+    @SneakyThrows
     private static void print() {
-        StringBuilder sb = new StringBuilder();
-        data.forEach(row -> {
-            row.forEach(i -> sb.append(i == null ? " " : i));
-            sb.append("\n");
-        });
-        System.out.println(sb);
+//        StringBuilder sb = new StringBuilder();
+//        data.forEach(row -> {
+//            row.forEach(i -> sb.append(i == null ? " " : i));
+//            sb.append("\n");
+//        });
+//        System.out.println(sb);
+
+
+        int width = data.get(0).size() * 2;
+        int height = data.size() * 2;
+
+        BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2d = bufferedImage.createGraphics();
+
+        for (int y = 0; y < data.size(); y++) {
+            for (int x = 0; x < data.get(0).size(); x++) {
+                Integer i = data.get(y).get(x);
+                g2d.setColor(i == null ? Color.blue : Color.getHSBColor(1, 0, .1f * i + .1f));
+                g2d.fillRect(x * 2, y * 2, (x + 1) * 2, (y + 1) * 2);
+            }
+        }
+        g2d.dispose();
+        File file = new File(String.format("c:\\Users\\sueti\\Documents\\ani\\anim%010d.png", counter++));
+        ImageIO.write(bufferedImage, "png", file);
     }
 
     private static int getValOnce(int y, int x) {
