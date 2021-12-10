@@ -22,7 +22,6 @@ public class D10t2 {
 
 
     public static void main(String[] args) {
-        load();
         final ArrayList<Long> results = new ArrayList<>();
         lineChecking:
         for (String line : data) {
@@ -61,6 +60,6 @@ public class D10t2 {
 
     @SneakyThrows
     private static List<String> load() {
-        return Files.readAllLines(Paths.get("C:\\Users\\sueti\\Downloads\\d10t1.txt"));
+        return Files.readAllLines(Paths.get("input/d10t1.txt"));
     }
 }

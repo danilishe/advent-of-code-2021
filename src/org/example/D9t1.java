@@ -46,7 +46,7 @@ public class D9t1 {
 
     @SneakyThrows
     private static List<List<Integer>> load() {
-        final List<String> strings = Files.readAllLines(Paths.get("C:\\Users\\sueti\\Downloads\\d9t1.txt"));
+        final List<String> strings = Files.readAllLines(Paths.get("input/d9t1.txt"));
         final List<List<Integer>> result = new ArrayList<>();
         for (String s : strings) {
             final List<Integer> row = new ArrayList<>();

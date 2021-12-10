@@ -58,7 +58,7 @@ class D3t2 {
 
     private static List<String> array() {
         try {
-            return Files.readAllLines(Paths.get("C:\\Users\\sueti\\Downloads\\d3t2.txt"));
+            return Files.readAllLines(Paths.get("input/d3t2.txt"));
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException(e);

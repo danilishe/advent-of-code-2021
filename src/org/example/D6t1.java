@@ -23,7 +23,7 @@ public class D6t1 {
 
     @SneakyThrows
     private static void load() {
-        Scanner scanner = new Scanner(new File("C:\\Users\\sueti\\Downloads\\d6t2.txt"));
+        Scanner scanner = new Scanner(new File("input/d6t2.txt"));
         for (int i : Arrays.stream(scanner.nextLine().split(",")).map(Integer::valueOf).toList()) {
             fishes[i]++;
         }

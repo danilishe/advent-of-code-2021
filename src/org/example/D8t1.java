@@ -100,7 +100,7 @@ public class D8t1 {
 
     @SneakyThrows
     private static void load() {
-        Scanner scanner = new Scanner(new File("C:\\Users\\sueti\\Downloads\\d8t1.txt"));
+        Scanner scanner = new Scanner(new File("input/d8t1.txt"));
         while (scanner.hasNext()) {
             final String[] split = scanner.nextLine().split("\\|");
             List<String> patternsAt = sortedPatterns(split[0].trim().split(" "));

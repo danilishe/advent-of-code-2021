@@ -24,7 +24,7 @@ public class D7t1 {
 
     @SneakyThrows
     private static void load() {
-        Scanner scanner = new Scanner(new File("C:\\Users\\sueti\\Downloads\\d7t1.txt"));
+        Scanner scanner = new Scanner(new File("input/d7t1.txt"));
         data = Arrays.stream(scanner.nextLine().split(",")).map(Integer::valueOf).toList();
         scanner.close();
         System.out.println("data = " + data);

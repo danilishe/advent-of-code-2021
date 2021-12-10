@@ -34,7 +34,7 @@ public class D5t1 {
 
     @SneakyThrows
     private static List<String> load() {
-        return Files.readAllLines(Paths.get("C:\\Users\\sueti\\Downloads\\d5t2.txt"));
+        return Files.readAllLines(Paths.get("input/d5t2.txt"));
     }
 
     public static void showCanvas(int[][] canvas) {

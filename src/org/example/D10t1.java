@@ -16,7 +16,6 @@ public class D10t1 {
 
 
     public static void main(String[] args) {
-        load();
         long result = 0;
         lineChecking: for (String line : data) {
             final LinkedList<Character> stack = new LinkedList<>();
@@ -49,6 +48,6 @@ public class D10t1 {
 
     @SneakyThrows
     private static List<String> load() {
-        return Files.readAllLines(Paths.get("C:\\Users\\sueti\\Downloads\\d10t1.txt"));
+        return Files.readAllLines(Paths.get("input/d10t1.txt"));
     }
 }

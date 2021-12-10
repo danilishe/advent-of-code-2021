@@ -34,7 +34,7 @@ public class D4t1 {
 
     @SneakyThrows
     private static void load() {
-        final Scanner scanner = new Scanner(new File("C:\\Users\\sueti\\Downloads\\d4t1.txt"));
+        final Scanner scanner = new Scanner(new File("input/d4t1.txt"));
         numberQueue = Arrays.stream(scanner.nextLine().split(","))
                 .map(Integer::parseInt)
                 .collect(Collectors.toList());
