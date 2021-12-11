@@ -9,30 +9,33 @@ import java.util.*;
 public class D11t2 {
 
     final private static int[][] field = load();
+    public static final int WIDTH = field[0].length;
+    public static final int HEIGHT = field.length;
 
     public static void main(String[] args) {
         long result = 0;
         for (int step = 0; !allFlashed(field); step++) {
-            final Set<Coordinate> flashedOctopuses = new HashSet<>();
+            final Set<Coordinate> flashedAtStep = new HashSet<>();
 
             growOctopuses();
 
-            for (int y = 0; y < field.length; y++) {
-                for (int x = 0; x < field[0].length; x++) {
-                    LinkedList<Coordinate> octopusGoingToFlash = new LinkedList<>();
+            for (int y = 0; y < HEIGHT; y++) {
+                for (int x = 0; x < WIDTH; x++) {
+                    LinkedList<Coordinate> flashed = new LinkedList<>();
                     if (goingFlash(x, y)) {
-                        octopusGoingToFlash.add(new Coordinate(x, y));
-                        while (!octopusGoingToFlash.isEmpty()) {
-                            final Coordinate octopus = octopusGoingToFlash.pop();
-                            flashedOctopuses.add(flashOctopus(octopus));
-                            octopusGoingToFlash.addAll(
-                                    chargeNeighbors(octopus, flashedOctopuses)
-                            );
+                        flashed.add(flashOctopus(new Coordinate(x, y)));
+                        while (!flashed.isEmpty()) {
+                            final Coordinate octopus = flashed.pop();
+                            flashedAtStep.add(flashOctopus(octopus));
+
+                            final List<Coordinate> willingFlashNeighbours = goingFlashNeighbours(octopus, flashedAtStep);
+                            willingFlashNeighbours.forEach(D11t2::flashOctopus);
+                            flashed.addAll(willingFlashNeighbours);
                         }
                     }
                 }
             }
-            result += flashedOctopuses.size();
+            result += flashedAtStep.size();
             System.out.println(toString(field));
             System.out.println((step + 1) + ") result = " + result);
             System.out.println();
@@ -50,8 +53,8 @@ public class D11t2 {
     }
 
     private static void growOctopuses() {
-        for (int y = 0; y < field.length; y++) {
-            for (int x = 0; x < field[0].length; x++) {
+        for (int y = 0; y < HEIGHT; y++) {
+            for (int x = 0; x < WIDTH; x++) {
                 field[y][x]++;
             }
         }
@@ -73,7 +76,7 @@ public class D11t2 {
         return octopus;
     }
 
-    private static List<Coordinate> chargeNeighbors(Coordinate central, Set<Coordinate> flashed) {
+    private static List<Coordinate> goingFlashNeighbours(Coordinate central, Set<Coordinate> flashed) {
         List<Coordinate> result = new ArrayList<>();
         for (int y = central.y() - 1; y <= central.y() + 1; y++) {
             for (int x = central.x() - 1; x <= central.x() + 1; x++) {
@@ -81,7 +84,6 @@ public class D11t2 {
                 if (!flashed.contains(current) && charge(x, y)) {
                     if (goingFlash(x, y)) {
                         result.add(current);
-                        flashed.add(flashOctopus(current));
                     }
                 }
             }
@@ -94,8 +96,8 @@ public class D11t2 {
     }
 
     private static boolean charge(int x, int y) {
-        if (x >= 0 && x < field[0].length
-                && y >= 0 && y < field.length) {
+        if (x >= 0 && x < WIDTH
+                && y >= 0 && y < HEIGHT) {
             field[y][x]++;
             return true;
         }
