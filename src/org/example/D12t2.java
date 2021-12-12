@@ -5,19 +5,12 @@ import lombok.SneakyThrows;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class D12t2 {
 
     public static void main(String[] args) {
-        final List<LinkedList<Node>> variants = getVariants(List.of(
-                "start-A",
-                "start-b",
-                "A-c",
-                "A-b",
-                "b-d",
-                "A-end",
-                "b-end"
-        ));
+        final List<LinkedList<Node>> variants = getVariants(load());
         System.out.println("variants = " + String.join("\n", variants.stream().map(List::toString).toList()));
         System.out.println("variants.size() = " + variants.size());
         final List<LinkedList<Node>> withSmall = variants.stream()
@@ -46,7 +39,7 @@ public class D12t2 {
         final Node currentNode = currentPath.peekLast();
         if (currentNode.isEnd()
                 || currentPath.size() > 1 && currentNode.isStart()
-                || currentNode.isSmall() && currentPath.stream().filter(Node::isSmall).count() > 2
+                || currentNode.isSmall() && moreThanTwoSmallVisitedTwice(currentPath)
                 || currentPath.size() > 150) { // cycles prevention
             paths.add(currentPath);
             return;
@@ -56,6 +49,17 @@ public class D12t2 {
             newBranch.add(node);
             getPath(newBranch, paths);
         }
+    }
+
+    private static boolean moreThanTwoSmallVisitedTwice(LinkedList<Node> currentPath) {
+        final Set<Map.Entry<String, List<Node>>> entries = currentPath.stream()
+                .filter(Node::isSmall)
+                .collect(Collectors.groupingBy(n -> n.name))
+                .entrySet();
+        return entries.stream()
+                    .filter(entry -> entry.getValue().size() > 1)
+                    .count() > 1
+                || entries.stream().anyMatch(entry -> entry.getValue().size() > 2);
     }
 }
 
