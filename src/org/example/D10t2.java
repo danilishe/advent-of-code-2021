@@ -1,14 +1,12 @@
 package org.example;
 
-import lombok.SneakyThrows;
-
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
+
+import static org.example.InputDataLoader.loadLines;
 
 public class D10t2 {
 
-    final static List<String> data = load();
+    final static List<String> data = loadLines("d10t1");
     private static final Map<Character, Character> brackets = Map.of(
             '(', ')',
             '[', ']',
@@ -55,11 +53,5 @@ public class D10t2 {
             case '>' -> 4;
             default -> 0;
         };
-    }
-
-
-    @SneakyThrows
-    private static List<String> load() {
-        return Files.readAllLines(Paths.get("input/d10t1.txt"));
     }
 }

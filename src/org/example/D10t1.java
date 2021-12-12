@@ -1,23 +1,24 @@
 package org.example;
 
-import lombok.SneakyThrows;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.*;
+import static org.example.InputDataLoader.loadLines;
 
 public class D10t1 {
 
-    final static List<String> data = load();
-    private static final Map<Character, Character> brackets = Map.of(')','(',
-            ']','[',
-            '}','{',
-            '>','<');
+    final static List<String> data = loadLines("d10t1");
+    private static final Map<Character, Character> brackets = Map.of(')', '(',
+            ']', '[',
+            '}', '{',
+            '>', '<');
 
 
     public static void main(String[] args) {
         long result = 0;
-        lineChecking: for (String line : data) {
+        lineChecking:
+        for (String line : data) {
             final LinkedList<Character> stack = new LinkedList<>();
             for (int i = 0; i < line.length(); i++) {
                 char c = line.charAt(i);
@@ -43,11 +44,5 @@ public class D10t1 {
             case '>' -> 25137;
             default -> 0;
         };
-    }
-
-
-    @SneakyThrows
-    private static List<String> load() {
-        return Files.readAllLines(Paths.get("input/d10t1.txt"));
     }
 }

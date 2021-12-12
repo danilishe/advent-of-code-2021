@@ -1,14 +1,10 @@
 package org.example;
 
-import lombok.SneakyThrows;
-
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
 
 public class D11t1 {
 
-    final private static int[][] field = load();
+    final private static int[][] field = InputDataLoader.loadSingleDigitMatrix("d11t1");
 
     public static void main(String[] args) {
         long result = 0;
@@ -93,21 +89,6 @@ public class D11t1 {
         return false;
     }
 
-
-    @SneakyThrows
-    private static int[][] load() {
-        final List<String> strings = Files.readAllLines(Paths.get("input/d11t1.txt"));
-        final int[][] ints = new int[strings.size()][strings.get(0).length()];
-        for (int y = 0; y < strings.size(); y++) {
-            final String currentRow = strings.get(y);
-            ints[y] = new int[currentRow.length()];
-            for (int x = 0; x < currentRow.length(); x++) {
-                ints[y][x] = currentRow.charAt(x) - '0';
-            }
-        }
-        System.out.println("0):\n" + toString(ints));
-        return ints;
-    }
 
     private record Coordinate(int x, int y) {
     }

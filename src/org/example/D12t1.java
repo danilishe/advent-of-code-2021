@@ -1,26 +1,19 @@
 package org.example;
 
-import lombok.SneakyThrows;
-
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
+
+import static org.example.InputDataLoader.loadLines;
 
 public class D12t1 {
 
     public static void main(String[] args) {
-        final List<LinkedList<Node>> variants = getVariants(load());
+        final List<LinkedList<Node>> variants = getVariants(loadLines("d12t1"));
         System.out.println("variants.size() = " + variants.size());
         final List<LinkedList<Node>> withSmall = variants.stream()
                 .filter(list -> list.stream()
                         .anyMatch(n -> n.isSmall() && !n.isEnd() && !n.isStart()))
                 .toList();
         System.out.println("withSmall = " + withSmall.size());
-    }
-
-    @SneakyThrows
-    private static List<String> load() {
-        return Files.readAllLines(Paths.get("input/d12t1.txt"));
     }
 
     private static List<LinkedList<Node>> getVariants(List<String> connections) {

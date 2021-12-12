@@ -1,16 +1,12 @@
 package org.example;
 
-import lombok.SneakyThrows;
-
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class D12t2 {
 
     public static void main(String[] args) {
-        final List<LinkedList<Node>> variants = getVariants(load());
+        final List<LinkedList<Node>> variants = getVariants(InputDataLoader.loadLines("d12t1"));
         System.out.println("variants = " + String.join("\n", variants.stream().map(List::toString).toList()));
         System.out.println("variants.size() = " + variants.size());
         final List<LinkedList<Node>> withSmall = variants.stream()
@@ -18,11 +14,6 @@ public class D12t2 {
                         .anyMatch(n -> n.isSmall() && !n.isEnd() && !n.isStart()))
                 .toList();
         System.out.println("withSmall = " + withSmall.size());
-    }
-
-    @SneakyThrows
-    private static List<String> load() {
-        return Files.readAllLines(Paths.get("input/d12t1.txt"));
     }
 
     private static List<LinkedList<Node>> getVariants(List<String> connections) {
