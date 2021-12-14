@@ -34,6 +34,8 @@ public class D14t1 {
             if (size > max) max = size;
         }
         System.out.println("collect = " + collect);
+        System.out.println("max = " + max);
+        System.out.println("min = " + min);
         System.out.println("max-min = " + (max - min));
     }
 }
